@@ -3,7 +3,9 @@ package Service.impl;
 import Common.Message;
 import Common.User;
 import Constants.MsgType;
+import Service.ClientConnectServerThread;
 import Service.ClientService;
+import Service.ManageClientConnectServerThread;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -17,7 +19,7 @@ import java.net.Socket;
 
 public class ClientServiceImpl implements ClientService {
 
-    private User user = new User();
+    private final User user = new User();
     private Socket socket;
 
     public Socket getSocket() {
@@ -31,6 +33,7 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public boolean checkUser(String userId, String password){
 
+        boolean checkSuccess = false;
         user.setUserId(userId);
         user.setPassword(password);
         try {
@@ -51,17 +54,19 @@ public class ClientServiceImpl implements ClientService {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
+            assert message != null;
             if(message.getMsgType().equals(MsgType.MESSAGE_LOGIN_SUCCESS)){
-                // todo create a thread to handle it.
+                ClientConnectServerThread clientConnectServerThread = new ClientConnectServerThread();
+                clientConnectServerThread.setSocket(socket);
+                ManageClientConnectServerThread.addThread(userId, clientConnectServerThread);
+                checkSuccess = true;
             }else {
-
+                socket.close();
             }
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-        return false;
+        return checkSuccess;
     }
 
 

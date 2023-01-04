@@ -26,6 +26,10 @@ public class ClientConnectServerThread extends Thread{
         this.setSocket(socket);
     }
 
+    public ClientConnectServerThread(){
+
+    }
+
     @Override
     public void run() {
         while (true){
@@ -39,6 +43,7 @@ public class ClientConnectServerThread extends Thread{
             try {
                 System.out.println("client is waiting for server's response.");
                 //thread will wait until get the message from server.
+                assert read != null;
                 message = (Message) read.readObject();
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

@@ -1,5 +1,8 @@
 package View;
 
+import Service.ClientService;
+import Service.impl.ClientServiceImpl;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -9,6 +12,8 @@ import java.io.InputStreamReader;
  */
 
 public class View {
+
+    private static ClientService clientService = new ClientServiceImpl();
 
     public static void main(String[] args) throws IOException {
 
@@ -35,7 +40,7 @@ public class View {
                     id = read.readLine();
                     System.out.println("\t\tplease input your password");
                     password = read.readLine();
-                    if(password.equals("1111")){
+                    if(clientService.checkUser(id, password)){
                         System.out.println("welcome " + id);
                         while (loop){
                             System.out.println("--------------message system acton--------------");
