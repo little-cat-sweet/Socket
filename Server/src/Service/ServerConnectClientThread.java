@@ -23,7 +23,7 @@ public class ServerConnectClientThread extends Thread{
     @Override
     public void run() {
         while (true){
-            System.out.println("server read message from client");
+            System.out.println("server read message from client : " + userId);
             ObjectInputStream read = null;
             try {
                 read = new ObjectInputStream(socket.getInputStream());
