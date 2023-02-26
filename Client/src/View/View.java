@@ -53,7 +53,7 @@ public class View {
                             actionTypeTwo = read.readLine();
                             switch (actionTypeTwo){
                                 case "1" : {
-                                    System.out.println("\t\tshow all online users");
+                                    clientService.getOnlineUserReq();
                                     break;
                                 }
                                 case "2" : {

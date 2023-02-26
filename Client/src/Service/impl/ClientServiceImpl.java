@@ -58,6 +58,7 @@ public class ClientServiceImpl implements ClientService {
             if(message.getMsgType().equals(MsgType.MESSAGE_LOGIN_SUCCESS)){
                 ClientConnectServerThread clientConnectServerThread = new ClientConnectServerThread();
                 clientConnectServerThread.setSocket(socket);
+                clientConnectServerThread.start();
                 ManageClientConnectServerThread.addThread(userId, clientConnectServerThread);
                 checkSuccess = true;
             }else {
@@ -67,5 +68,15 @@ public class ClientServiceImpl implements ClientService {
             e.printStackTrace();
         }
         return checkSuccess;
+    }
+
+    public void getOnlineUserReq() throws IOException {
+
+        ClientConnectServerThread clientConnectServerThread = ManageClientConnectServerThread.getThread(user.getUserId());
+        Message message = new Message();
+        message.setMsgType(MsgType.MESSAGE_Req_ONLINE_USER);
+        Socket socket = clientConnectServerThread.getSocket();
+        ObjectOutputStream writer = new ObjectOutputStream(socket.getOutputStream());
+        writer.writeObject(message);
     }
 }

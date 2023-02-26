@@ -1,6 +1,7 @@
 package Service;
 
 import Common.Message;
+import Constants.MsgType;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
@@ -45,6 +46,13 @@ public class ClientConnectServerThread extends Thread{
                 //thread will wait until get the message from server.
                 assert read != null;
                 message = (Message) read.readObject();
+                if(message.getMsgType().equals(MsgType.MESSAGE_Return_ONLINE_USER)){
+                    System.out.println("===========online users=============");
+                    String[] userIds = message.getContent().split(" ");
+                    for(String userId : userIds){
+                        System.out.println("用户 : " + userId);
+                    }
+                }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }

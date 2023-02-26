@@ -18,4 +18,8 @@ public class ManageServerConnectClientThread {
 
         return manageThreads.get(userId);
     }
+
+    public static ConcurrentHashMap<String, ServerConnectClientThread> getManageThreads(){
+        return manageThreads;
+    }
 }
