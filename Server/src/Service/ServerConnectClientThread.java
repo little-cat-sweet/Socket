@@ -25,7 +25,7 @@ public class ServerConnectClientThread extends Thread{
     @Override
     public void run() {
         while (true){
-            System.out.println("server read message from client : " + userId);
+            System.out.println("server reading message from client : " + userId);
             ObjectInputStream read = null;
             ObjectOutputStream writer = null;
             try {
@@ -40,6 +40,10 @@ public class ServerConnectClientThread extends Thread{
                     writeMessage.setContent(content);
                     writer.writeObject(writeMessage);
                     System.out.println("Having send all online users information to client" + userId);
+                }else if(readMessage.getMsgType().equals(MsgType.MESSAGE_CLIENT_EXIT)){
+                    System.out.println(readMessage.getSender() + " logout system");
+                    ManageServerConnectClientThread.removeServerConnectClientThread(readMessage.getSender());
+                    break;
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

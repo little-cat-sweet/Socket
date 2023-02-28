@@ -69,8 +69,8 @@ public class View {
                                     break;
                                 }
                                 case "5" : {
+                                    clientService.logout();
                                     loop = false;
-                                    System.out.println("\t\tlogin out");
                                     break;
                                 }
                             }

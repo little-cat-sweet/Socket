@@ -79,4 +79,21 @@ public class ClientServiceImpl implements ClientService {
         ObjectOutputStream writer = new ObjectOutputStream(socket.getOutputStream());
         writer.writeObject(message);
     }
+
+    @Override
+    public void logout() {
+
+        Message message = new Message();
+        message.setMsgType(MsgType.MESSAGE_CLIENT_EXIT);
+        message.setSender(user.getUserId());
+
+        try {
+            ObjectOutputStream writer = new ObjectOutputStream(ManageClientConnectServerThread.getThread(user.getUserId()).getSocket().getOutputStream());
+            writer.writeObject(message);
+            System.out.println("user " + user.getUserId() + " logout system.");
+            System.exit(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

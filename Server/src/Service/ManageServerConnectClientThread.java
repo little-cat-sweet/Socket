@@ -22,4 +22,9 @@ public class ManageServerConnectClientThread {
     public static ConcurrentHashMap<String, ServerConnectClientThread> getManageThreads(){
         return manageThreads;
     }
+
+    public static void removeServerConnectClientThread(String userId){
+
+        manageThreads.remove(userId);
+    }
 }

@@ -11,4 +11,6 @@ public interface ClientService {
     boolean checkUser(String userId, String password);
 
     void getOnlineUserReq() throws IOException;
+
+    void logout();
 }
