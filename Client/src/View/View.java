@@ -1,6 +1,8 @@
 package View;
 
+import Common.Message;
 import Service.ClientService;
+import Service.MessageClientService;
 import Service.impl.ClientServiceImpl;
 
 import java.io.BufferedReader;
@@ -14,7 +16,7 @@ import java.io.InputStreamReader;
 public class View {
 
     private static ClientService clientService = new ClientServiceImpl();
-
+    private static MessageClientService messageClientService = new MessageClientService();
     public static void main(String[] args) throws IOException {
 
         showView();
@@ -61,7 +63,11 @@ public class View {
                                     break;
                                 }
                                 case "3" : {
-                                    System.out.println("\t\tsend message to personal");
+                                    System.out.println("\t\t input your receiver");
+                                    String receiver = read.readLine();
+                                    System.out.println("\t\t input your content");
+                                    String content = read.readLine();
+                                    messageClientService.sendMessageToOne(content, id, receiver);
                                     break;
                                 }
                                 case "4" : {

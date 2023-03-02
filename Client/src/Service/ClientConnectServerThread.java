@@ -42,7 +42,6 @@ public class ClientConnectServerThread extends Thread{
             }
             Message message = null;
             try {
-                System.out.println("client is waiting for server's response.");
                 //thread will wait until get the message from server.
                 assert read != null;
                 message = (Message) read.readObject();
@@ -52,6 +51,8 @@ public class ClientConnectServerThread extends Thread{
                     for(String userId : userIds){
                         System.out.println("用户 : " + userId);
                     }
+                }else if(message.getMsgType().equals(MsgType.MESSAGE_SEND_ONE)){
+                    System.out.println(message.getSender() + ": " + message.getContent());
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

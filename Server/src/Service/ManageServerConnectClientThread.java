@@ -1,5 +1,9 @@
 package Service;
 
+import Common.Message;
+
+import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -26,5 +30,15 @@ public class ManageServerConnectClientThread {
     public static void removeServerConnectClientThread(String userId){
 
         manageThreads.remove(userId);
+    }
+
+    public static void sendMessageToOne(Message message){
+
+        try {
+            ObjectOutputStream writer = new ObjectOutputStream(getThread(message.getSender()).getSocket().getOutputStream());
+            writer.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }

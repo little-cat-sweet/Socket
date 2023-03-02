@@ -22,6 +22,22 @@ public class ServerConnectClientThread extends Thread{
         this.socket = socket;
     }
 
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
+    }
+
     @Override
     public void run() {
         while (true){
@@ -44,6 +60,11 @@ public class ServerConnectClientThread extends Thread{
                     System.out.println(readMessage.getSender() + " logout system");
                     ManageServerConnectClientThread.removeServerConnectClientThread(readMessage.getSender());
                     break;
+                }else if(readMessage.getMsgType().equals(MsgType.MESSAGE_SEND_ONE)){
+                    ServerConnectClientThread serverConnectClientThread = ManageServerConnectClientThread.getThread(readMessage.getReceiver());
+                    writer = new ObjectOutputStream(serverConnectClientThread.getSocket().getOutputStream());
+                    writer.writeObject(readMessage);
+                    System.out.println("已转发数据从" + readMessage.getSender() + "，到" + readMessage.getReceiver());
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
