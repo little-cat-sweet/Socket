@@ -30,4 +30,18 @@ public class MessageClientService {
             e.printStackTrace();
         }
     }
+
+    public void sendMessageToAll(String senderId, String content){
+
+        Message message = new Message();
+        message.setSender(senderId);
+        message.setContent(content);
+        message.setMsgType(MsgType.MESSAGE_SEND_ALL);
+        try {
+            ObjectOutputStream writer = new ObjectOutputStream(ManageClientConnectServerThread.getThread(senderId).getSocket().getOutputStream());
+            writer.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }

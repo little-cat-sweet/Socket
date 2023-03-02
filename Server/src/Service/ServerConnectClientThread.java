@@ -7,6 +7,8 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.nio.file.Watchable;
+import java.util.List;
 
 /**
  * @Author HongYun on 2023/1/4
@@ -65,6 +67,18 @@ public class ServerConnectClientThread extends Thread{
                     writer = new ObjectOutputStream(serverConnectClientThread.getSocket().getOutputStream());
                     writer.writeObject(readMessage);
                     System.out.println("已转发数据从" + readMessage.getSender() + "，到" + readMessage.getReceiver());
+                }else if(readMessage.getMsgType().equals(MsgType.MESSAGE_SEND_ALL)){
+                    String sender = readMessage.getSender();
+                    content = readMessage.getContent();
+                    List<ServerConnectClientThread> receivers = ManageServerConnectClientThread.getReceivers(sender);
+                    Message message = new Message();
+                    message.setSender(sender);
+                    message.setContent(content);
+                    message.setMsgType(MsgType.MESSAGE_SEND_ALL);
+                    for(ServerConnectClientThread receiver : receivers){
+                        writer = new ObjectOutputStream(receiver.getSocket().getOutputStream());
+                        writer.writeObject(message);
+                    }
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

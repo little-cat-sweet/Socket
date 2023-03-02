@@ -12,4 +12,5 @@ public class MsgType {
     public static final String MESSAGE_Return_ONLINE_USER = "4";
     public static final String MESSAGE_CLIENT_EXIT = "5";
     public static final String MESSAGE_SEND_ONE = "6";
+    public static final String MESSAGE_SEND_ALL = "7";
 }

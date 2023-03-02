@@ -4,6 +4,7 @@ import Common.Message;
 import Service.ClientService;
 import Service.MessageClientService;
 import Service.impl.ClientServiceImpl;
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -59,7 +60,9 @@ public class View {
                                     break;
                                 }
                                 case "2" : {
-                                    System.out.println("\t\tsend message to group");
+                                    System.out.println("\t\t input your content, which you want to send to all online persons");
+                                    String content = read.readLine();
+                                    messageClientService.sendMessageToAll(id, content);
                                     break;
                                 }
                                 case "3" : {

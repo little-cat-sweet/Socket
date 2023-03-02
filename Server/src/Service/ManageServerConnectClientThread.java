@@ -4,6 +4,8 @@ import Common.Message;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -32,13 +34,13 @@ public class ManageServerConnectClientThread {
         manageThreads.remove(userId);
     }
 
-    public static void sendMessageToOne(Message message){
+    public static List<ServerConnectClientThread> getReceivers(String senderId){
 
-        try {
-            ObjectOutputStream writer = new ObjectOutputStream(getThread(message.getSender()).getSocket().getOutputStream());
-            writer.writeObject(message);
-        } catch (IOException e) {
-            e.printStackTrace();
+        List<ServerConnectClientThread> receivers = new ArrayList<>();
+        for(String key : manageThreads.keySet()){
+            if(key.equals(senderId)) continue;
+            receivers.add(manageThreads.get(key));
         }
+        return receivers;
     }
 }

@@ -53,6 +53,8 @@ public class ClientConnectServerThread extends Thread{
                     }
                 }else if(message.getMsgType().equals(MsgType.MESSAGE_SEND_ONE)){
                     System.out.println(message.getSender() + ": " + message.getContent());
+                }else if(message.getMsgType().equals(MsgType.MESSAGE_SEND_ALL)){
+                    System.out.println(message.getSender() + ": " + message.getContent());
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
