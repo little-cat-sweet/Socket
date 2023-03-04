@@ -63,6 +63,10 @@ public class ServerConnectClientThread extends Thread{
                     break;
                 }else if(readMessage.getMsgType().equals(MsgType.MESSAGE_SEND_ONE)){
                     ServerConnectClientThread serverConnectClientThread = ManageServerConnectClientThread.getThread(readMessage.getReceiver());
+                    if(serverConnectClientThread == null){
+                        ManageServerConnectClientThread.addOffLineMessage(readMessage);
+                        continue;
+                    }
                     writer = new ObjectOutputStream(serverConnectClientThread.getSocket().getOutputStream());
                     writer.writeObject(readMessage);
                     System.out.println("已转发数据从" + readMessage.getSender() + "，到" + readMessage.getReceiver());
