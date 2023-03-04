@@ -28,6 +28,8 @@ public class Server {
 
     }
     public Server(){
+
+        new Thread(new SendNewsToAll()).start();
         try {
             serverSocket = new ServerSocket(9999);
         } catch (IOException e) {

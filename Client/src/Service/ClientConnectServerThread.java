@@ -3,6 +3,7 @@ package Service;
 import Common.Message;
 import Constants.MsgType;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
@@ -55,6 +56,15 @@ public class ClientConnectServerThread extends Thread{
                     System.out.println(message.getSender() + ": " + message.getContent());
                 }else if(message.getMsgType().equals(MsgType.MESSAGE_SEND_ALL)){
                     System.out.println(message.getSender() + ": " + message.getContent());
+                }else if(message.getMsgType().equals(MsgType.MESSAGE_FILE_SEND)){
+                    System.out.println("收到：" + message.getSender() + "发来的邮件，并保存到" + message.getDest());
+                    FileOutputStream fileOutputStream = new FileOutputStream(message.getDest());
+                    fileOutputStream.write(message.getFileContent());
+                    fileOutputStream.flush();
+                    fileOutputStream.close();
+                    System.out.println("保存成功");
+                }else if(message.getMsgType().equals(MsgType.MESSAGE_NOTIFY_ALL)){
+                    System.out.println(message.getContent());
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

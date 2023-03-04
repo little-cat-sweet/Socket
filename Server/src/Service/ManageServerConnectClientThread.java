@@ -1,9 +1,5 @@
 package Service;
 
-import Common.Message;
-
-import java.io.IOException;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
@@ -42,5 +38,14 @@ public class ManageServerConnectClientThread {
             receivers.add(manageThreads.get(key));
         }
         return receivers;
+    }
+
+    public static List<ServerConnectClientThread> getAllOnlineThreads(){
+
+        List<ServerConnectClientThread> onlineUsers = new ArrayList<>();
+        for(String key : manageThreads.keySet()){
+            onlineUsers.add(manageThreads.get(key));
+        }
+        return onlineUsers;
     }
 }

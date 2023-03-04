@@ -2,6 +2,7 @@ package View;
 
 import Common.Message;
 import Service.ClientService;
+import Service.FileService;
 import Service.MessageClientService;
 import Service.impl.ClientServiceImpl;
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
@@ -18,6 +19,7 @@ public class View {
 
     private static ClientService clientService = new ClientServiceImpl();
     private static MessageClientService messageClientService = new MessageClientService();
+    private static FileService fileService = new FileService();
     public static void main(String[] args) throws IOException {
 
         showView();
@@ -74,7 +76,13 @@ public class View {
                                     break;
                                 }
                                 case "4" : {
-                                    System.out.println("\t\tsend file");
+                                    System.out.println("\t\t input receiver");
+                                    String receiver = read.readLine();
+                                    System.out.println("\t\t input your src");
+                                    String src = read.readLine();
+                                    System.out.println("\t\t input your dest");
+                                    String dest = read.readLine();
+                                    fileService.sendFile(src, dest, id, receiver);
                                     break;
                                 }
                                 case "5" : {

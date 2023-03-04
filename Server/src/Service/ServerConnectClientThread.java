@@ -7,7 +7,6 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
-import java.nio.file.Watchable;
 import java.util.List;
 
 /**
@@ -79,6 +78,9 @@ public class ServerConnectClientThread extends Thread{
                         writer = new ObjectOutputStream(receiver.getSocket().getOutputStream());
                         writer.writeObject(message);
                     }
+                }else if(readMessage.getMsgType().equals(MsgType.MESSAGE_FILE_SEND)){
+                    writer = new ObjectOutputStream(ManageServerConnectClientThread.getThread(readMessage.getReceiver()).getSocket().getOutputStream());
+                    writer.writeObject(readMessage);
                 }
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();

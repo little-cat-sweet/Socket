@@ -13,4 +13,6 @@ public class MsgType {
     public static final String MESSAGE_CLIENT_EXIT = "5";
     public static final String MESSAGE_SEND_ONE = "6";
     public static final String MESSAGE_SEND_ALL = "7";
+    public static final String MESSAGE_FILE_SEND = "8";
+    public static final String MESSAGE_NOTIFY_ALL = "9";
 }
